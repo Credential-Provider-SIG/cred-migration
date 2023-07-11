@@ -24,7 +24,7 @@ abbrev: CRIMP
 category: info
 
 docname: draft-cpsig-crimp-latest
-submissiontype: independent
+submissiontype: IETF
 number:
 date:
 consensus: true
