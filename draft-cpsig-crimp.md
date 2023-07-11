@@ -19,12 +19,12 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: The Credential Migration Protocol
+abbrev: CRIMP
 category: info
 
-docname: draft-todo-yourname-protocol-latest
-submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
+docname: draft-cpsig-crimp-latest
+submissiontype: independent
 number:
 date:
 consensus: true
@@ -45,9 +45,9 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Nicholas Steele
+    organization: 1Password
+    email: nick.steele@1password.com
 
 normative:
 
