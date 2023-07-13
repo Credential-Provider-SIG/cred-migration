@@ -56,20 +56,50 @@ informative:
 
 --- abstract
 
-TODO Abstract
+This specification defines a protocol to securely move one or more user credentials between two credential providing applications.
 
 
 --- middle
 
 # Introduction
 
-TODO Introduction
+Traditionally, local credential migration through credential managers was
 
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
+# Flow Diagram
+
+       ┌──────────────────────────────────────────────────────┐
+       │                  Authorizing Party                   │
+       └─────┬──────────────────────────────────────────┬─────┘
+
+             │   (2) Derive            (1) Provide      │
+                Export Keys           Migration Key
+┌────────────┴──┐                                  ┌────┴──────────┐
+│               ◀─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤               │
+│               │                                  │               │
+│               │                                  │               │
+│               │                                  │               │
+│┌─────────────┐│                                  │               │
+││ (3)Encrypt  ││                                  │               │
+││ Credential  ││                                  │               │
+││    Data     ││                                  │               │
+│└─────────────┘│                                  │               │
+│               │       (4) Send Data Bundle       │               │
+│               │─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ▶┌─────────────┐│
+│               │                                  ││ (5) Decrypt ││
+│               │                                  ││   Bundle    ││
+│               │                                  │└─────────────┘│
+│               │                                  │               │
+│               │                                  │               │
+│               │                                  │               │
+│               │                                  │               │
+│Credential Data│                                  │Credential Data│
+│    Source     │                                  │  Destination  │
+└───────────────┘                                  └───────────────┘
 
 # Security Considerations
 
@@ -79,6 +109,9 @@ TODO Security
 # IANA Considerations
 
 This document has no IANA actions.
+
+# Implementation Requirements
+This section defines which algorithms and features of this specification are mandatory to implement. Applications using this specification can impose additional requirements upon implementations that they use.
 
 
 --- back
