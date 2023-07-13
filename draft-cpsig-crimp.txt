@@ -4,8 +4,8 @@
 
 WG Working Group                                               N. Steele
 Internet-Draft                                                 1Password
-Intended status: Informational                              11 July 2023
-Expires: 12 January 2024
+Intended status: Informational                              13 July 2023
+Expires: 14 January 2024
 
 
                    The Credential Migration Protocol
@@ -13,7 +13,8 @@ Expires: 12 January 2024
 
 Abstract
 
-   TODO Abstract
+   This specification defines a protocol to securely move one or more
+   user credentials between two credential providing applications.
 
 About This Document
 
@@ -45,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 January 2024.
+   This Internet-Draft will expire on 14 January 2024.
 
 Copyright Notice
 
@@ -65,15 +66,18 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+   3.  Flow Diagram
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  Implementation Requirements
+   7.  Normative References
    Acknowledgments
    Author's Address
 
 1.  Introduction
 
-   TODO Introduction
+   Traditionally, local credential migration through credential managers
+   was
 
 2.  Conventions and Definitions
 
@@ -83,15 +87,31 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+3.  Flow Diagram
+
+   ┌──────────────────────────────────────────────────────┐
+   │                  Authorizing Party                   │
+   └─────┬──────────────────────────────────────────┬─────┘
+
+         │   (2) Derive            (1) Provide      │
+            Export Keys           Migration Key ┌────────────┴──┐                                  ┌────┴──────────┐ │               ◀─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤               │ │               │                                  │               │ │               │                                  │               │ │               │                                  │               │ │┌─────────────┐│                                  │               │ ││ (3)Encrypt  ││                                  │               │ ││ Credential  ││                                  │               │ ││    Data     ││                                  │               │ │└─────────────┘│                                  │               │ │               │       (4) Send Data Bundle       │               │ │               │─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ▶┌─────────────┐│ │               │                                  ││ (5) Decrypt ││ │               │                                  ││   Bundle    ││ │               │                                  │└─────────────┘│ │               │                                  │               │ │               │                                  │               │ │               │                                  │               │ │               │                                  │               │ │Credential Data│                                  │Credential Data│ │    Source     │                                  │  Destination  │ └───────────────┘                                  └───────────────┘
+
+4.  Security Considerations
 
    TODO Security
 
-4.  IANA Considerations
+5.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  Normative References
+6.  Implementation Requirements
+
+   This section defines which algorithms and features of this
+   specification are mandatory to implement.  Applications using this
+   specification can impose additional requirements upon implementations
+   that they use.
+
+7.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
