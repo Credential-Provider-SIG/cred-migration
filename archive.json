@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-13T20:57:41.245399+00:00",
+  "timestamp": "2023-07-18T12:38:20.303783+00:00",
   "repo": "Credential-Provider-SIG/cred-migration",
   "labels": [
     {
@@ -49,6 +49,52 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJya-x85r32Oj",
+      "title": "Create a mermaid diagram of the basic migration flow",
+      "url": "https://github.com/Credential-Provider-SIG/cred-migration/issues/1",
+      "state": "OPEN",
+      "author": "irew",
+      "authorAssociation": "NONE",
+      "assignees": [
+        "irew"
+      ],
+      "labels": [],
+      "body": "Use [mermaid](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/) to create a basic diagram of the migration flow.",
+      "createdAt": "2023-07-18T12:12:13Z",
+      "updatedAt": "2023-07-18T12:12:13Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 2,
+      "id": "PR_kwDOJya-x85VyAhj",
+      "title": "Replace ASCII-diagram with a mermaid diagram",
+      "url": "https://github.com/Credential-Provider-SIG/cred-migration/pull/2",
+      "state": "OPEN",
+      "author": "irew",
+      "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Use mermaid to explain the migration flow\r\n\r\nThis is for issue: https://github.com/Credential-Provider-SIG/cred-migration/issues/1",
+      "createdAt": "2023-07-18T12:38:13Z",
+      "updatedAt": "2023-07-18T12:38:14Z",
+      "baseRepository": "Credential-Provider-SIG/cred-migration",
+      "baseRefName": "main",
+      "baseRefOid": "96ae2b136be8db96ec0654fef237bca82cdb4128",
+      "headRepository": "Credential-Provider-SIG/cred-migration",
+      "headRefName": "mermaid-diagram",
+      "headRefOid": "8b68c4323e385afaf21e442ef5c9d5e656375607",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
