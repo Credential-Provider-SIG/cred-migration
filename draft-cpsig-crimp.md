@@ -72,34 +72,20 @@ Traditionally, local credential migration through credential managers was
 
 # Flow Diagram
 
-       ┌──────────────────────────────────────────────────────┐
-       │                  Authorizing Party                   │
-       └─────┬──────────────────────────────────────────┬─────┘
-
-             │   (2) Derive            (1) Provide      │
-                Export Keys           Migration Key
-┌────────────┴──┐                                  ┌────┴──────────┐
-│               ◀─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤               │
-│               │                                  │               │
-│               │                                  │               │
-│               │                                  │               │
-│┌─────────────┐│                                  │               │
-││ (3)Encrypt  ││                                  │               │
-││ Credential  ││                                  │               │
-││    Data     ││                                  │               │
-│└─────────────┘│                                  │               │
-│               │       (4) Send Data Bundle       │               │
-│               │─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ▶┌─────────────┐│
-│               │                                  ││ (5) Decrypt ││
-│               │                                  ││   Bundle    ││
-│               │                                  │└─────────────┘│
-│               │                                  │               │
-│               │                                  │               │
-│               │                                  │               │
-│               │                                  │               │
-│Credential Data│                                  │Credential Data│
-│    Source     │                                  │  Destination  │
-└───────────────┘                                  └───────────────┘
+```mermaid
+sequenceDiagram
+    participant E as Credential Data Source
+    participant I as Credential Data Destination
+    note over E,I: Authorizing party
+    I->>I: (1) Create key-pair for importer
+    I->>E: (2) Send importer public key
+    E->>E: (3) Create key-pair for exporter
+    E->>E: (4) Create shared secret / symmetric key
+    E->>E: (5) Encrypt local data with symmetric key
+    E->>I: (6) Send exporter public key and encrypted bundle
+    I->>I: (7) Re-create shared secret / symmetric key
+    I->>I: (8) Decrypt bundle with symmetric key
+```
 
 # Security Considerations
 
