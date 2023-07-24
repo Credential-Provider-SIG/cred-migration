@@ -32,9 +32,9 @@ v: 3
 area: AREA
 workgroup: WG Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - identity
+ - credentials
+ - protocol
 venue:
   group: WG
   type: Working Group
@@ -57,7 +57,7 @@ informative:
 
 --- abstract
 
-This specification defines a protocol to securely move one or more user credentials between two credential providing applications.
+This specification defines a protocol to securely move one or more credentials between two credential providing applications.
 
 
 --- middle
@@ -75,13 +75,14 @@ In order to support credential provider interoporability and provide more secure
 
 
 ## Scope
-This protocol is scoped to describing the secure transmission of one or more credentials between two credential providers on the same or different devices managed by the same credential owner, capable of function in both online and offline contexts. This protocol does not make any assumptions about the channels in which credential data is passed from the source provider to the destination provider.
+This protocol is scoped to describing the secure transmission of one or more credentials between two credential providers on the same or different devices managed by the same credential owner, capable of function in both online and offline contexts. This protocol does not make any assumptions about the channels in which credential data is passed from the source provider to the destination provider. The destruction of credentials after migration by the credential provider source is out of scope as well.
 
 # Terminology
 
 ## Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
+Certain security-related terms are to be understood in the sense defined in [RFC4949].  These terms include, but are not limited to, "attack", "authentication" "authorization", "certificate", "credential", "encryption", "identity", "sign", "signature", "trust", "validate", and "verify".
 
 ## Actors
 Crimp has 3 types of actors:
@@ -90,7 +91,6 @@ Crimp has 3 types of actors:
 
 "credential provider":
 :   Hardware or software capable of securely storing and managing credentials on behalf of their owner. There are two credential providers when discussing migration: the source provider and the destination provider. The destination provider initiates the export request and is where the credential data should arrive after migration, while the source encrypts and transfers the credential data to the destination provider. These two credential providers will generally be two distinct pieces of hardware or software.
-
 
 "authorizing party":
 :  An OPTIONAL certificate authority that can grant and attest certificates on behalf of a credential owner. These certificates are used to authenticate the credential agent and MAY be used to create the migration key used on behalf of the source and destination credential providers.
