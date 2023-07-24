@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-19T22:01:37.717599+00:00",
+  "timestamp": "2023-07-24T20:40:25.595596+00:00",
   "repo": "Credential-Provider-SIG/cred-migration",
   "labels": [
     {
@@ -82,7 +82,7 @@
       "labels": [],
       "body": "Use mermaid to explain the migration flow\r\n\r\nThis is for issue: https://github.com/Credential-Provider-SIG/cred-migration/issues/1",
       "createdAt": "2023-07-18T12:38:13Z",
-      "updatedAt": "2023-07-18T12:46:12Z",
+      "updatedAt": "2023-07-19T22:08:01Z",
       "baseRepository": "Credential-Provider-SIG/cred-migration",
       "baseRefName": "main",
       "baseRefOid": "96ae2b136be8db96ec0654fef237bca82cdb4128",
@@ -102,7 +102,21 @@
           "updatedAt": "2023-07-18T12:46:11Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJya-x85brbSK",
+          "commit": {
+            "abbreviatedOid": "8b68c43"
+          },
+          "author": "nicksteele",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-07-19T22:08:01Z",
+          "updatedAt": "2023-07-19T22:08:01Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
