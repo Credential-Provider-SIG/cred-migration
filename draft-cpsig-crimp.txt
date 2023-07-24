@@ -4,8 +4,8 @@
 
 WG Working Group                                               N. Steele
 Internet-Draft                                                 1Password
-Intended status: Informational                              19 July 2023
-Expires: 20 January 2024
+Intended status: Informational                              24 July 2023
+Expires: 25 January 2024
 
 
                    The Credential Migration Protocol
@@ -14,7 +14,7 @@ Expires: 20 January 2024
 Abstract
 
    This specification defines a protocol to securely move one or more
-   user credentials between two credential providing applications.
+   credentials between two credential providing applications.
 
 About This Document
 
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 January 2024.
+   This Internet-Draft will expire on 25 January 2024.
 
 Copyright Notice
 
@@ -128,7 +128,9 @@ Table of Contents
    different devices managed by the same credential owner, capable of
    function in both online and offline contexts.  This protocol does not
    make any assumptions about the channels in which credential data is
-   passed from the source provider to the destination provider.
+   passed from the source provider to the destination provider.  The
+   destruction of credentials after migration by the credential provider
+   source is out of scope as well.
 
 2.  Terminology
 
@@ -139,6 +141,12 @@ Table of Contents
    "OPTIONAL" in this document are to be interpreted as described in
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
+
+   Certain security-related terms are to be understood in the sense
+   defined in [RFC4949].  These terms include, but are not limited to,
+   "attack", "authentication" "authorization", "certificate",
+   "credential", "encryption", "identity", "sign", "signature", "trust",
+   "validate", and "verify".
 
 2.2.  Actors
 
