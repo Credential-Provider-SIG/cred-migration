@@ -4,8 +4,8 @@
 
 WG Working Group                                               N. Steele
 Internet-Draft                                                 1Password
-Intended status: Informational                              24 July 2023
-Expires: 25 January 2024
+Intended status: Informational                             2 August 2023
+Expires: 3 February 2024
 
 
                    The Credential Migration Protocol
@@ -13,8 +13,9 @@ Expires: 25 January 2024
 
 Abstract
 
-   This specification defines a protocol to securely move one or more
-   credentials between two credential providing applications.
+   This document defines a protocol to securely move one or more
+   credentials between two credential providing applications same or
+   separate devices.
 
 About This Document
 
@@ -29,7 +30,7 @@ About This Document
    https://example.com/WG.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/USER/REPO.
+   https://github.com/Credential-Provider-SIG/cred-migration.
 
 Status of This Memo
 
@@ -46,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 January 2024.
+   This Internet-Draft will expire on 3 February 2024.
 
 Copyright Notice
 
@@ -65,17 +66,24 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-     1.1.  Scope
-   2.  Terminology
-     2.1.  Conventions and Definitions
-     2.2.  Actors
-   3.  Protocol Overview
-   4.  Security Considerations
-   5.  IANA Considerations
-   6.  Implementation Requirements
-   7.  References
-     7.1.  Normative References
-     7.2.  Informative References
+   2.  Desired User Experiences for CRIMP
+     2.1.  Same Device, Application to Application
+     2.2.  Device to Device Flows
+   3.  Requirements and Assumptions
+     3.1.  Scope
+     3.2.  Requirements and Topology
+     3.3.  Conventions and Definitions
+     3.4.  Actors
+   4.  Protocol Overview
+   5.  Supporting Different Network Conditions
+     5.1.  Export Request
+     5.2.  Credential Payload
+   6.  IANA Considerations
+   7.  Implementation Requirements
+   8.  Security Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgments
    Author's Address
 
@@ -121,7 +129,40 @@ Table of Contents
    Hellman key exchange, this protocol allows the creation of a secure
    channel or data payload between two providers.
 
-1.1.  Scope
+2.  Desired User Experiences for CRIMP
+
+   Credential transfer must occur with user consent and intent in mind.
+   This section outlines several different flows for how credential
+   import and export can be used and what the user's involvement in the
+   process would look like.
+
+2.1.  Same Device, Application to Application
+
+   A user has installed or been instructed to install a new credential
+   provider and wants to migrate the contents of their existing
+   credential provider to the new service.  The user would go to the new
+   provider and request export of some types or all credentials from
+   another provider.  The platform will then prompt the user to choose
+   the intended export provider, which the user can then select.  After
+   making their selection, the exporting credential provider will either
+   confirm with the user that they're going to export their credentials,
+   and the user will authorize the release.  Once the credentials are
+   imported, the importer will inform the user that the operation was
+   completed and the success of the transfer.
+
+2.2.  Device to Device Flows
+
+   There are several different modalities through which a credential
+   owner can migrate across devices, and depending on network or policy
+   requirements, the means with which they transfer credentials may
+   differ.  Below outlines several different device to device flows
+   depending on networking and constraints and A user has been given a
+   new phone or laptop and wishes to move credententials from an
+   application on one device to another.
+
+3.  Requirements and Assumptions
+
+3.1.  Scope
 
    This protocol is scoped to describing the secure transmission of one
    or more credentials between two credential providers on the same or
@@ -132,9 +173,12 @@ Table of Contents
    destruction of credentials after migration by the credential provider
    source is out of scope as well.
 
-2.  Terminology
+3.2.  Requirements and Topology
 
-2.1.  Conventions and Definitions
+   The goal of this specification is to develop a secure way to
+   transport credentials between two applications.
+
+3.3.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -148,9 +192,9 @@ Table of Contents
    "credential", "encryption", "identity", "sign", "signature", "trust",
    "validate", and "verify".
 
-2.2.  Actors
+3.4.  Actors
 
-   Crimp has 3 types of actors:
+   CRIMP has 3 types of actors:
 
    "credential owner":  An entity that is able to authenticate,
       authorize, access one or more credentials from within a credential
@@ -164,12 +208,13 @@ Table of Contents
    "credential provider":  Hardware or software capable of securely
       storing and managing credentials on behalf of their owner.  There
       are two credential providers when discussing migration: the source
-      provider and the destination provider.  The destination provider
-      initiates the export request and is where the credential data
-      should arrive after migration, while the source encrypts and
-      transfers the credential data to the destination provider.  These
-      two credential providers will generally be two distinct pieces of
-      hardware or software.
+      provider and the destination provider.  The destination provider,
+      which can also be referred to as the importing provider, initiates
+      the export request and is where the credential data should arrive
+      after migration, while the source (or export provider) encrypts
+      and transfers the credential data to the destination provider.
+      These two credential providers will generally be two distinct
+      pieces of hardware or software.
 
    "authorizing party":  An OPTIONAL certificate authority that can
       grant and attest certificates on behalf of a credential owner.
@@ -177,7 +222,7 @@ Table of Contents
       and MAY be used to create the migration key used on behalf of the
       source and destination credential providers.
 
-3.  Protocol Overview
+4.  Protocol Overview
 
           ┌──────────────────────────────────────────────────────┐
           │                  Authorizing Party                   │
@@ -212,10 +257,9 @@ Table of Contents
 
    The flow illustrated in Figure 1 shows the following: 1.  The
    destination credential provider initiates the flow by creating an
-   export request for the source.  The import request includes, an
-   identifier, a challenge, the scope of the export request (such as
-   which credentials should be exported), and a public key provided via
-   x509 certificate that has been generated by the destination
+   export request for the source.  The import request includes a
+   challenge, the scope of the export request, and a public key provided
+   via X.509 certificate that has been generated by the destination
    credential provider or an authorizing party. 2.  If an end-user and/
    or authorizing party authorize the request, the source credential
    provider uses the export request to derive the migration key, a
@@ -231,24 +275,45 @@ Table of Contents
    and rederives the migration key, decrypting the credential data which
    is then stored.
 
-4.  Security Considerations
+5.  Supporting Different Network Conditions
 
-   TODO Security
+   CRIMP is designed to be operational in settings where network access
+   may be limited between the credential providers and their platforms.
+   This protocol can work in both online and offline scenarios, as well
+   as in airgapped networks where one or both devices might not have
+   access to the internet.  In these s
 
-5.  IANA Considerations
+5.1.  Export Request
+
+   The export request intitiates the protocol and contains a credential
+   alongside set of request parameters for the source credential
+   provider to create a response with.  This request or elements of it
+   MAY be created by the authorizing server if one is present, or
+   created by the destination credential provider with or without input
+   from the credential owner.
+
+5.2.  Credential Payload
+
+   The credential payload includes both
+
+6.  IANA Considerations
 
    This document has no IANA actions.
 
-6.  Implementation Requirements
+7.  Implementation Requirements
 
    This section defines which algorithms and features of this
    specification are mandatory to implement.  Applications using this
    specification can impose additional requirements upon implementations
    that they use.
 
-7.  References
+8.  Security Considerations
 
-7.1.  Normative References
+   TODO Security
+
+9.  References
+
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -265,7 +330,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-7.2.  Informative References
+9.2.  Informative References
 
    [RFC6749]  Hardt, D., Ed., "The OAuth 2.0 Authorization Framework",
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
