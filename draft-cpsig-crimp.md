@@ -82,7 +82,7 @@ This protocol is scoped to describing the secure transmission of one or more cre
 {::boilerplate bcp14-tagged}
 Certain security-related terms are to be understood in the sense defined in [RFC4949].  These terms include, but are not limited to, "attack", "authentication" "authorization", "certificate", "credential", "encryption", "identity", "sign", "signature", "trust", "validate", and "verify".
 
-### Specific Terms 
+### Specific Terms
 [Outline words outside of the terminology section]
 
 # Protocol Overview
